@@ -1,6 +1,5 @@
-# Overview
-This project involved the containerization and deployment of a full-stack yolo application using Docker.
-
+# E-Commerce Web Application
+This project involves the use of Docker for containerization and deployment of the web application.
 
 # Requirements
 Install the docker engine here:
@@ -8,8 +7,6 @@ Install the docker engine here:
 
 ## How to launch the application 
 
+## Docker images on Dockerhub
+![Alt text](DockerHub.png)
 
-![Alt text](image.png)
-
-## How to run the app
-Use vagrant up --provison command
