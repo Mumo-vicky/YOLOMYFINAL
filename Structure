@@ -1,18 +1,17 @@
-ansible-playbook/
-├── roles/
-│   ├── setup-mongodb/
+ansible/
+    ├── ansible-playbook.yml
+    ├── inventory
+roles/
+│   ├── backend/
 │   │   ├── tasks/
 │   │   │   └── main.yml
-│   │   └── vars/
-│   │       └── main.yml
-│   ├── backend-deployment/
+│   ├── common/
 │   │   ├── tasks/
 │   │   │   └── main.yml
-│   │   └── vars/
-│   │       └── main.yml
-│   └── frontend-deployment/
+│   └── frontend/
 │       ├── tasks/
 │       │   └── main.yml
-│       └── vars/
-│           └── main.yml
+│   └── mongodb/
+│       ├── tasks/
+│       │   └── main.yml
 └── playbook.yml
