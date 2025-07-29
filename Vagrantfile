@@ -49,20 +49,14 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-    config.vm.provider "virtualbox" do |vb|
-      vb.memory = 2048
-      vb.cpus = 2
-      vb.customize [
-        "modifyvm", :id,
-        "--ioapic", "on",
-        "--pae", "off",
-        "--hwvirtex", "on",
-        "--nestedpaging", "on",
-        "--vtxvpid", "on",
-        "--accelerate3d", "off",
-        "--paravirtprovider", "kvm"
-      ]
-    end
+   config.vm.provider "virtualbox" do |vb|
+     # Display the VirtualBox GUI when booting the machine
+     #vb.gui = true
+  
+     # Customize the amount of memory on the VM:
+     vb.memory = "2048"
+     vb.cpus = 2
+   end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -74,4 +68,16 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.hostname = "yolomy"
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
+  config.vm.network "forwarded_port", guest: 27017, host: 27017
+
+  config.vm.synced_folder ".", "/vagrant"
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "ansible/ansible-playbook.yml"
+    ansible.inventory_path = "ansible/inventory"
+    ansible.verbose = "v"
+  end
 end
