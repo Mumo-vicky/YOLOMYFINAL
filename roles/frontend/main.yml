@@ -1,0 +1,20 @@
+---
+- name: Cloning of the GitHub reposiory
+  git:
+    repo: "https://github.com/Mumo-vicky/week5ip2"
+    dest: "/opt/yolomy"
+    version: "master"
+  tags: frontend
+
+- name: Copy docker-compose.yml
+  copy:
+    src: "/vagrant/docker-compose.yml"
+    dest: "/opt/yolomy/docker-compose.yml"
+  tags: frontend
+
+- name: Start containers
+  docker_compose:
+    project_src: "/opt/yolomy"
+    build: yes
+    state: present
+  tags: frontend
