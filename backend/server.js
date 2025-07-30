@@ -40,6 +40,10 @@ app.use(cors());
 // Use Route
 app.use('/api/products', productRoute)
 
+app.get('/health', (req, res) => {
+    res.status(200).send('OK'); // Or res.json({ status: 'healthy' });
+});
+
 // Define the PORT
 const PORT = process.env.PORT || 5000
 

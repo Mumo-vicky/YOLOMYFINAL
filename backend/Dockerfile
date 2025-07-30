@@ -33,8 +33,10 @@ COPY --from=builder /usr/src/app/routes ./routes
 COPY --from=builder /usr/src/app/server.js .
 COPY --from=builder /usr/src/app/upload.js .
 
+RUN apk add --no-cache curl
+
 # Creating the upload directory
-RUN mkdir -p ./public/images
+RUN mkdir -p public/images
 
 ENV PORT=5000 \
     MONGODB_URI=mongodb://mongodb/yolomy \
