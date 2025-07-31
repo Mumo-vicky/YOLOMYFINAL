@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/jammy64"
+  config.vm.box = "geerlingguy/ubuntu2004"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -69,15 +69,15 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.hostname = "yolomy"
-  config.vm.network "forwarded_port", guest: 3000, host: 3000
-  config.vm.network "forwarded_port", guest: 5000, host: 5000
-  config.vm.network "forwarded_port", guest: 27017, host: 27017
+  config.vm.network "forwarded_port", guest: 3000, host: 3000, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 27017, host: 27017, host_ip: "127.0.0.1"
 
-  config.vm.synced_folder ".", "/vagrant"
+
+
+  config.vm.synced_folder ".", "/vagrant/yolo-app"
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/ansible-playbook.yml"
-    #ansible.inventory_path = "ansible/inventory"
-    ansible.verbose = "v"
+  ansible.playbook = "ansible/ansible-playbook.yml"
   end
 end
