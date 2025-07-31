@@ -154,4 +154,7 @@ vagrant provision
 ![vagrant_command](./vagrantup2.png "vagrant_command")
 
 ### 2. Ansible Execution
+The vagrant file should execute the ansible playbook and once done, containers should be created sucessfully as below:
+
+![compose](./compose.png "compose")
 ### 3. Application access and testing
