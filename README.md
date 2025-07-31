@@ -90,19 +90,11 @@ end
 
   roles:
     - role: common
-      tags: ["common", "setup"]
     - role: docker
-      tags: ["docker", "setup"]
     - role: clone
-      tags: ["app_clone", "deploy"]
     - role: mongodb
-      tags: ["mongodb", "containers", "deploy"]
     - role: backend
-      tags: ["backend", "containers", "deploy"]
     - role: frontend
-      tags: ["frontend", "containers", "deploy"]
-    - role: docker
-      tags: ["docker_compose", "deploy"]
 ```
 ### 3. Docker
 - Responsible for containerization
