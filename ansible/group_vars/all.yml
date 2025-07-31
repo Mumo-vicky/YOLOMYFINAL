@@ -1,7 +1,7 @@
 ---
 app_repo_url: "https://github.com/Mumo-vicky/week5ip2.git"
 
-app_dir_in_vm: "/vagrant/yolo-app"
+app_dir_in_vm: "/vagrant/yoloapp"
 
 docker_compose_project_name: "yoloapp"
 
