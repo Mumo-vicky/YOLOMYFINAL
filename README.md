@@ -8,4 +8,4 @@ This project involves the use of Docker for containerization and deployment of t
 
 **### More Details**
 
-[Application Deployment using Vagrant an Ansible](./VagrantandAnsible.md)
+- [Application Deployment using Vagrant an Ansible](./VagrantandAnsible.md)
