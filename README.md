@@ -1,33 +1,112 @@
-# E-Commerce Web Application
-This project involves the use of Docker for containerization and deployment of the web application.
+# YOLOMY E-Commerce Deployment with Vagrant & Ansible
 
-# Technologies
-![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
-![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
-![React](https://img.shields.io/badge/Frontend-React-61DAFB)
+## Project Overview
+This project demonstrates a complete e-commerce application deployed using:
+- **Vagrant** for VM provisioning
+- **Ansible** for configuration management
+- **Docker** for containerization
 
-# Requirements
-Install the docker engine here:
-- [Docker Engine](https://docs.docker.com/engine/install/) (v20.10+)
-- [Docker Compose](https://docs.docker.com/compose/install/) (v2.0+)
-- 4GB RAM minimum (8GB recommended)
 
-## How to launch the application 
-1. **Clone the Repositoty you're in**:
-    ```bash
-    git clone https://github.com/Mumo-vicky/week5ip2.git
-    cd yolomy
+The below will be the tests to confirm the application is working correctly:
+- Successfull rendition of web application page
+- Successfull addition of a product
+- Successfull retrieval of added products
 
-2. **Launch the application**
-    ```bash
-    docker-compose up -d
+These will test correct containerization, correct network connectivity and data persistence throughout the containers.
 
-3. **Access the application**
-    Frontend: http://localhost:3000
-    Backend: http://localhost:5000
+## Project Structure
+```
+project-root/
+│
+├── ansible/
+│   ├── ansible-playbook.yml # Main Ansible playbook
+│   ├── group_vars/
+│   │ └── all.yml # Global variables
+│   └── roles/
+│       ├── backend_container/ # Node.js backend configuration
+│       ├── clone/ # Code repository setup
+│       ├── common/ # Base system setup
+│       ├── docker/ # Docker installation
+│       ├── mongodb/ # MongoDB container config
+│       ├── frontend/ # React frontend configuration and final Docker Compose management
+│
+├── backend/                       # Node.js API source
+│   ├── Dockerfile
+│   └── ...
+│
+├── client/                        # React frontend source
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   └── ...
+│
+├── docker-compose.yml             # Container orchestration
+├── Vagrantfile                    # VM configuration
+└── README.md                      # This file
+```
+## Technology Stack
 
-## Pre-Built Docker images on Dockerhub
-![Alt text](DockerHub.png)
+### 1. Vagrant
+- Responsble for virtual machine provisioning
+- Creates an Ubuntu 20.04 VM with:
+  - 2GB RAM / 2 CPU cores
+  - Port forwarding (3000, 5000, 27017)
+  - Synced project folder
 
-**Ensure ports 3000,5000 and 27017 are all available**
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.box = "geerlingguy/ubuntu2004"
+  
+  config.vm.provider "virtualbox" do |vb|
+     # Display the VirtualBox GUI when booting the machine
+     # vb.gui = true
+
+     # Customize the amount of memory on the VM:
+     vb.memory = "2048"
+     vb.cpus = 2
+   end
+
+config.vm.hostname = "yolomy"
+  config.vm.network "forwarded_port", guest: 3000, host: 3000, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 27017, host: 27017, host_ip: "127.0.0.1"
+
+  config.vm.synced_folder ".", "/vagrant/yolo-app"
+
+  config.vm.provision "ansible" do |ansible|
+  ansible.playbook = "ansible/ansible-playbook.yml"
+end
+```
+### 2. Ansible 
+- Responsible for configuration management
+- Automates the below:
+  -   Docker & Docker Compose installation
+  -   Application deployment
+  -   Container management
+
+```yml
+- name: Provision Vagrant VM and Deploy YOLOMY Application
+  hosts: all
+  become: yes
+
+  roles:
+    - role: common
+      tags: ["common", "setup"]
+    - role: docker
+      tags: ["docker", "setup"]
+    - role: clone
+      tags: ["app_clone", "deploy"]
+    - role: mongodb
+      tags: ["mongodb", "containers", "deploy"]
+    - role: backend
+      tags: ["backend", "containers", "deploy"]
+    - role: frontend
+      tags: ["frontend", "containers", "deploy"]
+    - role: docker
+      tags: ["docker_compose", "deploy"]
+```
+### 3. Docker
+- Responsible for containerization
+-   MongoDB container (port 27017)
+-   Node.js backend (port 5000)
+-   React frontend via Nginx (port 3000)
 

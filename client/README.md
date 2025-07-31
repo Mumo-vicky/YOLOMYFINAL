@@ -1,112 +1,68 @@
-# YOLOMY E-Commerce Deployment with Vagrant & Ansible
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Project Overview
-This project demonstrates a complete e-commerce application deployed using:
-- **Vagrant** for VM provisioning
-- **Ansible** for configuration management
-- **Docker** for containerization
+## Available Scripts
 
+In the project directory, you can run:
 
-The below will be the tests to confirm the application is working correctly:
-- Successfull rendition of web application page
-- Successfull addition of a product
-- Successfull retrieval of added products
+### `npm start`
 
-These will test correct containerization, correct network connectivity and data persistence throughout the containers.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Project Structure
-```
-project-root/
-│
-├── ansible/
-│   ├── ansible-playbook.yml # Main Ansible playbook
-│   ├── group_vars/
-│   │ └── all.yml # Global variables
-│   └── roles/
-│       ├── backend_container/ # Node.js backend configuration
-│       ├── clone/ # Code repository setup
-│       ├── common/ # Base system setup
-│       ├── docker/ # Docker installation
-│       ├── mongodb/ # MongoDB container config
-│       ├── frontend/ # React frontend configuration and final Docker Compose management
-│
-├── backend/                       # Node.js API source
-│   ├── Dockerfile
-│   └── ...
-│
-├── client/                        # React frontend source
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   └── ...
-│
-├── docker-compose.yml             # Container orchestration
-├── Vagrantfile                    # VM configuration
-└── README.md                      # This file
-```
-## Technology Stack
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-### 1. Vagrant
-- Responsble for virtual machine provisioning
-- Creates an Ubuntu 20.04 VM with:
-  - 2GB RAM / 2 CPU cores
-  - Port forwarding (3000, 5000, 27017)
-  - Synced project folder
+### `npm test`
 
-```ruby
-Vagrant.configure("2") do |config|
-  config.vm.box = "geerlingguy/ubuntu2004"
-  
-  config.vm.provider "virtualbox" do |vb|
-     # Display the VirtualBox GUI when booting the machine
-     # vb.gui = true
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-     # Customize the amount of memory on the VM:
-     vb.memory = "2048"
-     vb.cpus = 2
-   end
+### `npm run build`
 
-config.vm.hostname = "yolomy"
-  config.vm.network "forwarded_port", guest: 3000, host: 3000, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 27017, host: 27017, host_ip: "127.0.0.1"
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-  config.vm.synced_folder ".", "/vagrant/yolo-app"
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
-  config.vm.provision "ansible" do |ansible|
-  ansible.playbook = "ansible/ansible-playbook.yml"
-end
-```
-### 2. Ansible 
-- Responsible for configuration management
-- Automates the below:
-  -   Docker & Docker Compose installation
-  -   Application deployment
-  -   Container management
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-```yml
-- name: Provision Vagrant VM and Deploy YOLOMY Application
-  hosts: all
-  become: yes
+### `npm run eject`
 
-  roles:
-    - role: common
-      tags: ["common", "setup"]
-    - role: docker
-      tags: ["docker", "setup"]
-    - role: clone
-      tags: ["app_clone", "deploy"]
-    - role: mongodb
-      tags: ["mongodb", "containers", "deploy"]
-    - role: backend
-      tags: ["backend", "containers", "deploy"]
-    - role: frontend
-      tags: ["frontend", "containers", "deploy"]
-    - role: docker
-      tags: ["docker_compose", "deploy"]
-```
-### 3. Docker
-- Responsible for containerization
--   MongoDB container (port 27017)
--   Node.js backend (port 5000)
--   React frontend via Nginx (port 3000)
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
