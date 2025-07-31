@@ -1,0 +1,13 @@
+---
+app_repo_url: "https://github.com/Mumo-vicky/week5ip2.git"
+
+app_dir_in_vm: "/vagrant/yolo-app"
+
+docker_compose_project_name: "yoloapp"
+
+frontend_port: 3000
+
+backend_port: 5000
+
+mongodb_port: 27017
+

@@ -1,0 +1,7 @@
+---
+
+- name: Ensure Docker volume 'yolomy-uploads' exists for backend uploads
+  community.docker.docker_volume:
+    name: yolomy-uploads
+    state: present
+  tags: [ 'backend' ]

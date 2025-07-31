@@ -1,0 +1,45 @@
+---
+- name: Navigate to application directory and bring up Docker Compose services
+  ansible.builtin.command: "docker compose -p {{ docker_compose_project_name }} up -d --build"
+  args:
+    chdir: "{{ app_dir_in_vm }}" 
+  register: docker_compose_output
+  changed_when: docker_compose_output.rc != 0 or "Creating" in docker_compose_output.stdout or "Starting" in docker_compose_output.stdout
+  tags: [ 'docker_compose' ]
+
+- name: Print Docker Compose up output
+  ansible.builtin.debug:
+    msg: "{{ docker_compose_output.stdout_lines }}"
+  tags: [ 'docker_compose' ]
+
+- name: Wait for frontend service to be healthy
+  ansible.builtin.uri:
+    url: "http://localhost:{{ frontend_port }}"
+    status_code: 200
+    timeout: 120
+  register: frontend_health_check
+  until: frontend_health_check.status == 200
+  retries: 20
+  delay: 6
+  tags: [ 'docker_compose', 'healthcheck' ]
+
+- name: Print frontend health check result
+  ansible.builtin.debug:
+    msg: "Frontend service is healthy and accessible at http://localhost:{{ frontend_port }}"
+  tags: [ 'docker_compose', 'healthcheck' ]
+
+- name: Wait for backend service to be healthy (using its healthcheck endpoint)
+  ansible.builtin.uri:
+    url: "http://localhost:{{ backend_port }}/health"
+    status_code: 200
+    timeout: 120
+  register: backend_health_check
+  until: backend_health_check.status == 200
+  retries: 20
+  delay: 6
+  tags: [ 'docker_compose', 'healthcheck' ]
+
+- name: Print backend health check result
+  ansible.builtin.debug:
+    msg: "Backend service is healthy and accessible at http://localhost:{{ backend_port }}"
+  tags: [ 'docker_compose', 'healthcheck' ]
