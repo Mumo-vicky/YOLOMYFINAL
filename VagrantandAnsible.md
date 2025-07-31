@@ -1,10 +1,10 @@
-# YOLOMY E-Commerce Deployment with Vagrant & Ansible
+**# YOLOMY E-Commerce Deployment with Vagrant & Ansible**
 
-## Project Overview
+**## Project Overview**
 This project demonstrates a complete e-commerce application deployed using:
-- **Vagrant** for VM provisioning
-- **Ansible** for configuration management
-- **Docker** for containerization
+- ****Vagrant**** for VM provisioning
+- ****Ansible**** for configuration management
+- ****Docker**** for containerization
 
 
 The below will be the tests to confirm the application is working correctly:
@@ -14,7 +14,7 @@ The below will be the tests to confirm the application is working correctly:
 
 These will test correct containerization, correct network connectivity and data persistence throughout the containers.
 
-## Project Structure
+**## Project Structure**
 ```
 project-root/
 │
@@ -43,9 +43,9 @@ project-root/
 ├── Vagrantfile                    # VM configuration
 └── README.md                      # This file
 ```
-## Technology Stack
+**## Technology Stack**
 
-### 1. Vagrant
+**### 1. Vagrant**
 - Responsble for virtual machine provisioning
 - Creates an Ubuntu 20.04 VM with:
   - 2GB RAM / 2 CPU cores
@@ -55,7 +55,7 @@ project-root/
 ```ruby
 Vagrant.configure("2") do |config|
   config.vm.box = "geerlingguy/ubuntu2004"
-  
+
   config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
      # vb.gui = true
@@ -76,7 +76,7 @@ config.vm.hostname = "yolomy"
   ansible.playbook = "ansible/ansible-playbook.yml"
 end
 ```
-### 2. Ansible 
+**### 2. Ansible**
 - Responsible for configuration management
 - Automates the below:
   -   Docker & Docker Compose installation
@@ -96,7 +96,7 @@ end
     - role: backend
     - role: frontend
 ```
-### 3. Docker
+**### 3. Docker**
 - Responsible for containerization
 -   MongoDB container (port 27017)
 -   Node.js backend (port 5000)
@@ -140,3 +140,18 @@ networks:
   ipnet:
     driver: bridge
 ```
+# Web Application Deployment
+
+### 1. Vagrant Virtual Machine Provisioning
+Run the commands:
+```
+vagrant up
+# vagrant reload --if needed
+vagrant provision
+```
+![vagrant_command](./vagrantup.png "vagrant_command")
+![vagrant_command](./vagrantup1.png "vagrant_command")
+![vagrant_command](./vagrantup2.png "vagrant_command")
+
+### 2. Ansible Execution
+### 3. Application access and testing
