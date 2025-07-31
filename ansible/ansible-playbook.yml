@@ -14,15 +14,15 @@
     - role: clone 
       tags: ["app_clone", "deploy"]
 
-    - role: mongodb_container
+    - role: mongodb
       tags: ["mongodb", "containers", "deploy"]
 
-    - role: backend_container
+    - role: backend
       tags: ["backend", "containers", "deploy"]
 
-    - role: frontend_container
+    - role: frontend
       tags: ["frontend", "containers", "deploy"]
 
-    - role: docker_compose_up
+    - role: docker
       tags: ["docker_compose", "deploy"]
 
