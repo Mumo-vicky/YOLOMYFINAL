@@ -1,19 +1,8 @@
 ---
-- name: Ensuring MongoDB data directory exists
-  file:
-    path: "/data/db"
-    state: directory
-    owner: mongodb
-    group: mongodb
-  tags: mongodb
 
-- name: Start MongoDB container
-  docker_container:
-    name: mongodb
-    image: mongo:6
-    volumes:
-      - "yolomy-data:/data/db"
-    ports:
-      - "27017:27017"
-    restart_policy: always
-  tags: mongodb
+- name: Ensure Docker volume 'yolomy-data' exists for MongoDB persistence
+  community.docker.docker_volume:
+    name: yolomy-data
+    state: present
+  tags: [ 'mongodb' ]
+

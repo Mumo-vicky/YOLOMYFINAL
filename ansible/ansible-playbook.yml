@@ -1,9 +1,28 @@
----
-- hosts: all
-  become: true
+
+
+- name: Provision Vagrant VM and Deploy MERN Application
+  hosts: all
+  become: yes
 
   roles:
-    - common
-    - mongodb
-    - backend
-    - frontend
+    - role: common 
+      tags: ["common", "setup"]
+
+    - role: docker 
+      tags: ["docker", "setup"]
+
+    - role: clone 
+      tags: ["app_clone", "deploy"]
+
+    - role: mongodb_container
+      tags: ["mongodb", "containers", "deploy"]
+
+    - role: backend_container
+      tags: ["backend", "containers", "deploy"]
+
+    - role: frontend_container
+      tags: ["frontend", "containers", "deploy"]
+
+    - role: docker_compose_up
+      tags: ["docker_compose", "deploy"]
+
