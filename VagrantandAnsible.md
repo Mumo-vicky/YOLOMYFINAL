@@ -41,7 +41,7 @@ project-root/
 │
 ├── docker-compose.yml             # Container orchestration
 ├── Vagrantfile                    # VM configuration
-└── README.md                      # This file
+└── ...
 ```
 ## Technology Stack
 
