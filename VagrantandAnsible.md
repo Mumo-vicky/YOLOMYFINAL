@@ -147,7 +147,6 @@ Run the commands:
 ```
 vagrant up
 # vagrant reload --if needed
-vagrant provision
 ```
 ![vagrant_command](./vagrantup.png "vagrant_command")
 ![vagrant_command](./vagrantup1.png "vagrant_command")
@@ -167,8 +166,18 @@ The application should now be accessible on: http://localhost:3000
 -   **Persistent Data**: Docker volumes maintain database and uploads between restarts
 
 
+## Requirements/Troubleshooting
+-   Verify virtualization is enabled in BIOS
+-   Ensure ports 3000, 5000, and 27017 are available
+-   Run provisioning manually:
+  -   Run the command
+```
+vagrant provision
+```
+
 #### Application Screenshots
 ![image](./image1.png "image")
 ![image](./image2.png "image")
 ![image](./image3.png "image")
 ![image](./image4.png "image")
+
