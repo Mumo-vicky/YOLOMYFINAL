@@ -170,7 +170,6 @@ The application should now be accessible on: http://localhost:3000
 -   Verify virtualization is enabled in BIOS
 -   Ensure ports 3000, 5000, and 27017 are available
 -   Run provisioning manually:
-  -   Run the command
 ```
 vagrant provision
 ```
