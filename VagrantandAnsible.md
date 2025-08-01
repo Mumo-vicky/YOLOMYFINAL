@@ -1,10 +1,10 @@
-**# YOLOMY E-Commerce Deployment with Vagrant & Ansible**
+# YOLOMY E-Commerce Deployment with Vagrant & Ansible
 
-**## Project Overview**
+## Project Overview
 This project demonstrates a complete e-commerce application deployed using:
-- ****Vagrant**** for VM provisioning
-- ****Ansible**** for configuration management
-- ****Docker**** for containerization
+- **Vagrant** for VM provisioning
+- **Ansible** for configuration management
+- **Docker** for containerization
 
 
 The below will be the tests to confirm the application is working correctly:
@@ -14,7 +14,7 @@ The below will be the tests to confirm the application is working correctly:
 
 These will test correct containerization, correct network connectivity and data persistence throughout the containers.
 
-**## Project Structure**
+## Project Structure
 ```
 project-root/
 │
@@ -43,9 +43,9 @@ project-root/
 ├── Vagrantfile                    # VM configuration
 └── README.md                      # This file
 ```
-**## Technology Stack**
+## Technology Stack
 
-**### 1. Vagrant**
+### 1. Vagrant
 - Responsble for virtual machine provisioning
 - Creates an Ubuntu 20.04 VM with:
   - 2GB RAM / 2 CPU cores
@@ -76,7 +76,7 @@ config.vm.hostname = "yolomy"
   ansible.playbook = "ansible/ansible-playbook.yml"
 end
 ```
-**### 2. Ansible**
+### 2. Ansible
 - Responsible for configuration management
 - Automates the below:
   -   Docker & Docker Compose installation
@@ -96,7 +96,7 @@ end
     - role: backend
     - role: frontend
 ```
-**### 3. Docker**
+### 3. Docker
 - Responsible for containerization
 -   MongoDB container (port 27017)
 -   Node.js backend (port 5000)
@@ -159,3 +159,16 @@ The vagrant file should execute the ansible playbook and once done, containers s
 ![compose](./compose.png "compose")
 ### 3. Application access and testing
 The application should now be accessible on: http://localhost:3000
+
+## Key Features
+-   **Isolated Development Environment**: Vagrant ensures consistency across all team members' machines
+-   **Automated Provisioning**: Ansible handles all setup tasks
+-   **Containerized Services**: Docker provides clean separation of components
+-   **Persistent Data**: Docker volumes maintain database and uploads between restarts
+
+
+#### Application Screenshots
+![image](./image1.png "image")
+![image](./image2.png "image")
+![image](./image3.png "image")
+![image](./image4.png "image")
