@@ -158,3 +158,4 @@ The vagrant file should execute the ansible playbook and once done, containers s
 
 ![compose](./compose.png "compose")
 ### 3. Application access and testing
+The application should now be accessible on: http://localhost:3000
