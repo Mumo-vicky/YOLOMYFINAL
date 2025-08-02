@@ -1,4 +1,5 @@
 ---
+
 - name: Navigate to application directory and bring up Docker Compose services
   ansible.builtin.command: "docker compose -p {{ docker_compose_project_name }} up -d --build"
   args:
