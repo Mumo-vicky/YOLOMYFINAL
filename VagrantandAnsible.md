@@ -85,9 +85,17 @@ end
 
 ```yml
 - name: Provision Vagrant VM and Deploy YOLOMY Application
+```
+```yml
   hosts: all
+```
+  - Targettting all hosts
+```yml
   become: yes
+```
+  - Run commands as root
 
+```yml
   roles:
     - role: common
     - role: docker
