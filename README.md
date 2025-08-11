@@ -1,11 +1,11 @@
-# E-Commerce Web Application
-This project involves the use of Docker for containerization and deployment of the web application.
 
-# Technologies
-![Docker](__https://img.shields.io/badge/Docker-Containerized-blue__)
-![Node.js](__https://img.shields.io/badge/Backend-Node.js-green__)
-![React](__https://img.shields.io/badge/Frontend-React-61DAFB__)
+# **E-Commerce Web Application on Kubernetes**
 
-### More Details
+## **Project Overview**
+This project demonstrates the deployment of a **3-tier e-commerce application** (Frontend, Backend, and MongoDB) on **Google Kubernetes Engine (GKE)** using Kubernetes best practices.
 
-- [Application Deployment using Vagrant and Ansible](./VagrantandAnsible.md)
+### **Key Features**
+
+✅ **Frontend** (React) – Served publicly via a **LoadBalancer**  
+✅ **Backend** (Node.js) – Connects to MongoDB via **ClusterIP Service**  
+✅ **MongoDB** – Deployed as a **StatefulSet** with **persistent storage** 
