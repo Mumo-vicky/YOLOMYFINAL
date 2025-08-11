@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: mumovicky/yolomy-backend:v1.0.0
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGODB_URI
+          value: "mongodb://mongo/yolomy"
+        - name: UPLOAD_DIR
+          value: "/usr/src/app/public/images"
+        volumeMounts:
+        - name: uploads
+          mountPath: /usr/src/app/public/images
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: uploads
+        emptyDir: {}
