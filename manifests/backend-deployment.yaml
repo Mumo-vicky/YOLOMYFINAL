@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: mumovicky/yolomy-backend:v1.0.1
+        image: mumovicky/yolomy-backend:v1.0.2
         ports:
         - containerPort: 5000
         env:
