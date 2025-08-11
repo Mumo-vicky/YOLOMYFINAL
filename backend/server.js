@@ -3,41 +3,28 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const upload = multer();
-const config = require('./_config');
-
-
 
 const productRoute = require('./routes/api/productRoute');
 
-// Connecting to the Database
-const mongoURI = process.env.MONGO_URI || config.mongoURI['development'];
-//const environment = 'development';
-//let mongoURI = config.mongoURI[environment];
-//let dbName = 'yolomy';
+// // Connecting to the Database
+// let mongodb_url = 'mongodb://localhost/';
+// let dbName = 'yolomy';
 
 // define a url to connect to the database
-mongoose.connect(
-  mongoURI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  (err) => {
-    if (err) {
-      console.error('MongoDB connection error:', err);
-      process.exit(1);
-    }
-  }
-);
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://mongo/yolomy'; 
+// 'mongo' = Kubernetes service name
+mongoose.connect(MONGODB_URI,{useNewUrlParser: true, useUnifiedTopology: true  } )
+let db = mongoose.connection;
 
-
-// Log successful DB connection
-mongoose.connection.once('open', () => {
-    console.log('Database connected successfully');
-});
-
+// Check Connection
+db.once('open', ()=>{
+    console.log('Database connected successfully')
+})
 
 // Check for DB Errors
-// db.on('error', (error)=>{
-//     console.log(error);
-// })
+db.on('error', (error)=>{
+    console.log(error);
+})
 
 // Initializing express
 const app = express()
@@ -53,6 +40,10 @@ app.use(cors());
 
 // Use Route
 app.use('/api/products', productRoute)
+
+app.get('/health', (req, res) => {
+    res.status(200).send('OK'); // Or res.json({ status: 'healthy' });
+});
 
 // Define the PORT
 const PORT = process.env.PORT || 5000
