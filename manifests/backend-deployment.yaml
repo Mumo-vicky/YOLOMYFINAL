@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
       - name: backend
-        image: mumovicky/yolomy-backend:v1.0.2
+        image: mumovicky/yolomy-backend:v1.0.3
         ports:
         - containerPort: 5000
         env:
         - name: MONGODB_URI
-          value: "mongodb://mongo:27017/yolomy"
+          value: "mongodb://mongo/yolomy"
         - name: UPLOAD_DIR
           value: "/usr/src/app/public/images"
         volumeMounts:
