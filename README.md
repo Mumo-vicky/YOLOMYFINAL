@@ -44,7 +44,7 @@ gcloud container clusters create yolomy-kubernetes \
   ```
 ### 2. Configure kubectl
 ```
-gcloud container clusters get-credentials [CLUSTER_NAME] --zone [COMPUTE_ZONE]
+gcloud container clusters get-credentials yolomy-kubernetes --zone us-central1-a
 ```
 ### 3. Build and Push Docker Images
 ```
