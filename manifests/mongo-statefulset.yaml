@@ -21,14 +21,9 @@ spec:
         volumeMounts:
         - name: mongo-data
           mountPath: /data/db
-        readinessProbe:
-          exec:
-            command:
-            - mongosh
-            - --eval
-            - "db.adminCommand('ping')"
-          initialDelaySeconds: 5
-          periodSeconds: 10
+        env:
+        - name: MONGO_INITDB_DATABASE
+          value: "yolomy"
   volumeClaimTemplates:
   - metadata:
       name: mongo-data
@@ -37,3 +32,16 @@ spec:
       resources:
         requests:
           storage: 10Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  clusterIP: None
+  ports:
+  - port: 27017
+  selector:
+    app: mongo

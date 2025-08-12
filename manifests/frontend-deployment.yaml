@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mumovicky/yolomy-frontend:v1.0.1
+        image: mumovicky/yolomy-frontend:v1.0.3
         ports:
         - containerPort: 80
-        readinessProbe:
+        livenessProbe:
           httpGet:
-            path: /
+            path: /health
             port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 10

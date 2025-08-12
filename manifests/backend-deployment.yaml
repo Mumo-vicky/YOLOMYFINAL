@@ -14,23 +14,23 @@ spec:
     spec:
       containers:
       - name: backend
-        image: mumovicky/yolomy-backend:v1.0.3
+        image: mumovicky/yolomy-backend:v1.0.4
         ports:
         - containerPort: 5000
         env:
         - name: MONGODB_URI
           value: "mongodb://mongo/yolomy"
-        - name: UPLOAD_DIR
-          value: "/usr/src/app/public/images"
-        volumeMounts:
-        - name: uploads
-          mountPath: /usr/src/app/public/images
+        - name: PORT
+          value: "5000"
         livenessProbe:
           httpGet:
             path: /health
             port: 5000
           initialDelaySeconds: 30
           periodSeconds: 10
-      volumes:
-      - name: uploads
-        emptyDir: {}
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
