@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: mumovicky/yolomy-frontend:v1.0.3
+        image: mumovicky/yolomy-frontend:v1.0.5
         ports:
         - containerPort: 80
         livenessProbe:
